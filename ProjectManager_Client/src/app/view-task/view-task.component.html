@@ -7,25 +7,29 @@
             <strong>Project</strong>
             <input type="text" class="form-control" style="width:60%;display:inline-block;margin-left:15px" id="project" [(ngModel)]="selectedProjName"
               disabled>
-            <button class="btn btn-primary" style="margin-left:15px;" (click)="openModal(projModal)">Search</button>
+            <button class="btn btn-primary" style="margin-left:15px;margin-top:15px" (click)="openModal(projModal)">Search</button>
   
           </div>
           <div class="col-sm-7 text-right" style="padding-right:0">
             <strong>Sort Task By :</strong>
-            <button class="btn btn-default" (click)="sortTask(1)" style="margin-left:10px;">
+            <button class="btn btn-default" (click)="sortTask(1)" 
+            style="margin-left:10px;">
               Start Date
               <span class="glyphicon" [ngClass]="{'glyphicon-arrow-up':isStartDateAsc===true,
               'glyphicon-arrow-down':isStartDateAsc===false}"></span>
             </button>
-            <button class="btn btn-default" (click)="sortTask(2)" style="margin-left:15px;">End Date
+            <button class="btn btn-default" (click)="sortTask(2)" 
+            style="margin-left:15px;">End Date
                 <span class="glyphicon" [ngClass]="{'glyphicon-arrow-up':isEndDateAsc===true,
                 'glyphicon-arrow-down':isEndDateAsc===false}"></span>
             </button>
-            <button class="btn btn-default" (click)="sortTask(3)" style="margin-left:15px;">Priority
+            <button class="btn btn-default" (click)="sortTask(3)" 
+            style="margin-left:15px;margin-top:15px">Priority
                 <span class="glyphicon" [ngClass]="{'glyphicon-arrow-up':isPriorityAsc===true,
                 'glyphicon-arrow-down':isPriorityAsc===false}"></span>
             </button>
-            <button class="btn btn-default" (click)="sortTask(4)" style="margin-left:15px;">Completed
+            <button class="btn btn-default" (click)="sortTask(4)" 
+            style="margin-left:15px;margin-top:15px">Completed
                 <span class="glyphicon" [ngClass]="{'glyphicon-arrow-up':isCompletedAsc===true,
                 'glyphicon-arrow-down':isCompletedAsc===false}"></span>
             </button>
