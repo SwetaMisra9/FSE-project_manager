@@ -38,21 +38,21 @@ namespace ProjectManager.BC
             }
         }
 
-        public int InsertProjectDetails(MODEL.Project project)
+        public int InsertProjectDetails(MODEL.Project projectItem)
         {
             using (dbContext)
             {
                 DAC.Project proj = new DAC.Project()
                 {
-                    Project_Name = project.ProjectName,
-                    Start_Date = project.ProjectStartDate,
-                    End_Date = project.ProjectEndDate,
-                    Priority = project.Priority
+                    Project_Name = projectItem.ProjectName,
+                    Start_Date = projectItem.ProjectStartDate,
+                    End_Date = projectItem.ProjectEndDate,
+                    Priority = projectItem.Priority
                 };
                 dbContext.Projects.Add(proj);
                 dbContext.SaveChanges();
                 var editDetails = (from editUser in dbContext.Users
-                                   where editUser.User_ID.ToString().Contains(project.User.UserId.ToString())
+                                   where editUser.User_ID.ToString().Contains(projectItem.User.UserId.ToString())
                                    select editUser).First();
                 // Modify existing records
                 if (editDetails != null)
