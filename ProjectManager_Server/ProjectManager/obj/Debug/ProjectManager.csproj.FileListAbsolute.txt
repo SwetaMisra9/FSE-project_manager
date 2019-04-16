@@ -64,7 +64,6 @@ C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectM
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\bin\System.Net.Http.Formatting.xml
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\bin\System.Web.Http.xml
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\bin\System.Web.Http.WebHost.xml
-C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.csprojAssemblyReference.cache
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.csproj.CopyComplete
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.dll
