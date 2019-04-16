@@ -12,22 +12,23 @@ namespace ProjectManager.DAC
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class ProjectManagerEntities1 : DbContext
     {
         public ProjectManagerEntities1()
             : base("name=ProjectManagerEntities1")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<ParentTask> ParentTasks { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }
+
