@@ -68,3 +68,4 @@ C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectM
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.csproj.CopyComplete
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.dll
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.pdb
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager\obj\Debug\ProjectManager.csprojAssemblyReference.cache
