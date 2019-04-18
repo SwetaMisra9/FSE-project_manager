@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
+using NUnit.Framework;
 using ProjectManager.Controllers;
 using ProjectManager.Models;
 using System;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 namespace ProjectManager.Test
 {
 
-    [TestClass]
+    [TestFixture]
     public class TaskControllerTest
     {
-        [TestMethod]
+        [Test]
         public void TestRetrieveTasks_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -31,8 +32,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Raj",
+                Last_Name = "Aryan",
                 User_ID = 123,
                 Task_ID = 1
             });
@@ -41,7 +42,7 @@ namespace ProjectManager.Test
             tasks.Add(new DAC.Task()
             {
                 Task_ID = 1,
-                Task_Name = "ASDQW",
+                Task_Name = "MYTASK",
                 Parent_ID = 123456,
                 Project_ID = 1234,
                 Start_Date = DateTime.Now,
@@ -55,10 +56,10 @@ namespace ProjectManager.Test
             var result = controller.RetrieveTaskByProjectId(projectid) as JSendResponse;
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.Data, typeof(List<ProjectManager.Models.Task>));
+            Assert.IsInstanceOf(typeof(List<ProjectManager.Models.Task>),result.Data);
         }
 
-        [TestMethod]
+        [Test]
         public void TestRetrieveParentTasks_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -66,13 +67,13 @@ namespace ProjectManager.Test
             parentTasks.Add(new DAC.ParentTask()
             {
                 Parent_ID = 12345,
-                Parent_Task_Name = "ANB"
+                Parent_Task_Name = "PTASK"
 
             });
             parentTasks.Add(new DAC.ParentTask()
             {
                 Parent_ID = 123456,
-                Parent_Task_Name = "PNB"
+                Parent_Task_Name = "MYTASK"
 
             });
             context.ParentTasks = parentTasks;
@@ -81,11 +82,11 @@ namespace ProjectManager.Test
             var result = controller.RetrieveParentTasks() as JSendResponse;
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.Data, typeof(List<ProjectManager.Models.ParentTask>));
+            Assert.IsInstanceOf(typeof(List<ProjectManager.Models.ParentTask>),result.Data);
             Assert.AreEqual((result.Data as List<ParentTask>).Count, 2);
         }
 
-        [TestMethod]
+        [Test]
         public void TestInsertTasks_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -93,8 +94,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Raj",
+                Last_Name = "Aryan",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -111,8 +112,8 @@ namespace ProjectManager.Test
                 Status = 0,
                 User = new User()
                 {
-                    FirstName = "Suvam",
-                    LastName = "Chowdhury",
+                    FirstName = "Sweta",
+                    LastName = "ChowdMisrahury",
                     EmployeeId = "123456",
                     UserId = 123
                 }
@@ -127,7 +128,7 @@ namespace ProjectManager.Test
             Assert.IsNotNull((context.Users.Local[0]).Task_ID);
         }
 
-        [TestMethod]
+        [Test]
         public void TestUpdateProjects_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -167,8 +168,8 @@ namespace ProjectManager.Test
                 Status = 0,
                 User = new User()
                 {
-                    FirstName = "Suvam",
-                    LastName = "Chowdhury",
+                    FirstName = "Raj",
+                    LastName = "Aryan",
                     EmployeeId = "123456",
                     UserId = 123
                 }
@@ -181,7 +182,7 @@ namespace ProjectManager.Test
             Assert.AreEqual((context.Tasks.Local[0]).Priority, 30);
         }
 
-        [TestMethod]
+        [Test]
         public void TestDeleteProjects_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -218,7 +219,7 @@ namespace ProjectManager.Test
             Assert.AreEqual((context.Tasks.Local[0]).Status, 1);
         }
 
-        [TestMethod]
+        [Test]
         public void TestRetrieveTaskByProjectId_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -235,8 +236,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Raj",
+                Last_Name = "Aryan",
                 User_ID = 123,
                 Task_ID = 12345,
                 Project_ID = 1234
@@ -270,161 +271,186 @@ namespace ProjectManager.Test
             var result = controller.RetrieveTaskByProjectId(12345) as JSendResponse;
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.Data, typeof(List<ProjectManager.Models.Task>));
+            Assert.IsInstanceOf(typeof(List<ProjectManager.Models.Task>),result.Data);
             Assert.AreEqual((result.Data as List<ProjectManager.Models.Task>).Count, 1);
             Assert.AreEqual((result.Data as List<ProjectManager.Models.Task>)[0].Task_Name, "TEST");
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestRetrieveTaskByProjectId_NegativeTaskId()
         {
+            int projectId = -12345;
             var context = new MockProjectManagerEntities();
 
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.RetrieveTaskByProjectId(-12345) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.RetrieveTaskByProjectId(projectId));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
 
-
-
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
+        
         public void TestInsertTask_NullTaskObject()
         {
+            Models.Task taskDetails = null;
             var context = new MockProjectManagerEntities();
 
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.InsertTaskDetails(null) as JSendResponse;
+            var ex = Assert.Throws<ArgumentNullException>(() => controller.InsertTaskDetails(taskDetails));
+            Assert.That(ex.ParamName, Is.EqualTo("taskDetails"));
+            
         }
 
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestInsertTask_NegativeTaskParentId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.Parent_ID = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.InsertTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.InsertTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestInsertTask_NegativeProjectId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.Project_ID = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.InsertTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.InsertTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestInsertTask_NegativeTaskId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.TaskId = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.InsertTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.InsertTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
 
 
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
+        
         public void TestUpdateTask_NullTaskObject()
         {
             var context = new MockProjectManagerEntities();
-
+            Models.Task taskDetails = null;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.UpdateTaskDetails(null) as JSendResponse;
+            var ex = Assert.Throws<ArgumentNullException>(() => controller.UpdateTaskDetails(taskDetails));
+            Assert.That(ex.ParamName, Is.EqualTo("taskDetails"));
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestUpdateTask_NegativeTaskParentId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.Parent_ID = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.UpdateTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.UpdateTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestUpdateTask_NegativeProjectId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.Project_ID = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.UpdateTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.UpdateTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestUpdateTask_NegativeTaskId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.TaskId = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.UpdateTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.UpdateTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
 
 
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
+        
         public void TestDeleteTask_NullTaskObject()
         {
             var context = new MockProjectManagerEntities();
-
+            Models.Task task = null;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.DeleteTaskDetails(null) as JSendResponse;
+            var ex = Assert.Throws<ArgumentNullException>(() => controller.DeleteTaskDetails(task));
+            Assert.That(ex.ParamName, Is.EqualTo("task"));
+            
         }
 
 
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestDeleteTask_NegativeTaskParentId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.Parent_ID = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.DeleteTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.DeleteTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestDeleteTask_NegativeProjectId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.Project_ID = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.DeleteTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.DeleteTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArithmeticException))]
+        [Test]
+        
         public void TestDeleteTask_NegativeTaskId()
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
             task.TaskId = -234;
             var controller = new TaskController(new BC.TaskBC(context));
-            var result = controller.DeleteTaskDetails(task) as JSendResponse;
+            var ex = Assert.Throws<ArithmeticException>(() => controller.DeleteTaskDetails(task));
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
     }
 }
