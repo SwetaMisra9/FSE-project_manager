@@ -80,3 +80,6 @@ C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectM
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager.Tests\obj\Debug\ProjectManager.Tests.csproj.CopyComplete
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager.Tests\obj\Debug\ProjectManager.Tests.dll
 C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager.Tests\obj\Debug\ProjectManager.Tests.pdb
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\ProjectManager.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll

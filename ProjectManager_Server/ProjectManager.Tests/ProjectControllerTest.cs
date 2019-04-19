@@ -53,8 +53,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Sweta",
+                Last_Name = "Misra",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -70,8 +70,8 @@ namespace ProjectManager.Test
                 NoOfTasks = 5,
                 User = new User()
                 {
-                    FirstName = "Suvam",
-                    LastName = "Chowdhury",
+                    FirstName = "Sweta",
+                    LastName = "Misra",
                     EmployeeId = "123456",
                     UserId = 123
                 }
@@ -120,8 +120,8 @@ namespace ProjectManager.Test
                 User = new User()
                 {
                     EmployeeId = 418220.ToString(),
-                    FirstName = "PIYALI",
-                    LastName = "SANTRA",
+                    FirstName = "Sweta",
+                    LastName = "Misra",
                     ProjectId = 123,
                     UserId = 123
                 }
@@ -170,8 +170,8 @@ namespace ProjectManager.Test
                 User = new User()
                 {
                     EmployeeId = 418220.ToString(),
-                    FirstName = "PIYALI",
-                    LastName = "SANTRA",
+                    FirstName = "Sweta",
+                    LastName = "Misra",
                     ProjectId = 123,
                     UserId = 123
                 }
@@ -191,8 +191,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Raj",
+                Last_Name = "Aryan",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -201,11 +201,11 @@ namespace ProjectManager.Test
             var controller = new ProjectController(new BC.ProjectBC(context));
             //var result = controller.InsertProjectDetails(testProject) as JSendResponse;
             var ex = Assert.Throws<ArgumentNullException>(() => controller.InsertProjectDetails(testProject)) ;
-            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
+            Assert.That(ex.Message, Is.Not.Null);
         }
 
         [Test]
-        
+
         public void TestInsertProject_NegativeProjectId()
         {
             var context = new MockProjectManagerEntities();
@@ -231,16 +231,16 @@ namespace ProjectManager.Test
                 User = new User()
                 {
                     EmployeeId = 123.ToString(),
-                    FirstName = "SWETA",
-                    LastName = "MISRA",
+                    FirstName = "Sweta",
+                    LastName = "Misra",
                     ProjectId = -234,
                     UserId = 123
                 }
             };
             var controller = new ProjectController(new BC.ProjectBC(context));
-            var result = controller.InsertProjectDetails(testProject) as JSendResponse;
             var ex = Assert.Throws<ArithmeticException>(() => controller.InsertProjectDetails(testProject));
             Assert.That(ex.Message, Is.Not.Null);
+
         }
 
         [Test]
@@ -271,7 +271,7 @@ namespace ProjectManager.Test
             };
             var controller = new ProjectController(new BC.ProjectBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.InsertProjectDetails(testProject));
-            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
+            Assert.That(ex.Message, Is.Not.Null);
            
         }
 
@@ -284,8 +284,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Sweta",
+                Last_Name = "Misra",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -323,8 +323,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Sweta",
+                Last_Name = "Misra",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -362,8 +362,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Sweta",
+                Last_Name = "Misra",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -371,8 +371,8 @@ namespace ProjectManager.Test
             Models.Project testProject = null;
             var controller = new ProjectController(new BC.ProjectBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.UpdateProjectDetails(testProject));
-            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
-            var result = controller.UpdateProjectDetails(testProject) as JSendResponse;
+            Assert.That(ex.Message, Is.Not.Null);
+            
         }
 
         [Test]
@@ -384,8 +384,8 @@ namespace ProjectManager.Test
             users.Add(new DAC.User()
             {
                 Employee_ID = "414942",
-                First_Name = "Suvam",
-                Last_Name = "Chowdhury",
+                First_Name = "Sweta",
+                Last_Name = "Misra",
                 User_ID = 123,
                 Task_ID = 123
             });
@@ -442,7 +442,7 @@ namespace ProjectManager.Test
             };
             var controller = new ProjectController(new BC.ProjectBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.UpdateProjectDetails(testProject));
-            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
@@ -482,7 +482,7 @@ namespace ProjectManager.Test
             var controller = new ProjectController(new BC.ProjectBC(context));
             var ex = Assert.Throws<ArithmeticException>(() => controller.UpdateProjectDetails(testProject));
             Assert.That(ex.Message, Is.Not.Null);
-            var result = controller.UpdateProjectDetails(testProject) as JSendResponse;
+            
         }
 
         [Test]
@@ -543,7 +543,7 @@ namespace ProjectManager.Test
             Models.Project testProject = null;
             var controller = new ProjectController(new BC.ProjectBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.DeleteProjectDetails(testProject));
-            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
+            Assert.That(ex.Message, Is.Not.Null);
            
         }
 
@@ -614,7 +614,7 @@ namespace ProjectManager.Test
             };
             var controller = new ProjectController(new BC.ProjectBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.DeleteProjectDetails(testProject));
-            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
@@ -684,14 +684,14 @@ namespace ProjectManager.Test
                 User = new User()
                 {
                     EmployeeId = 123.ToString(),
-                    FirstName = "Sweta",
-                    LastName = "Misra",
+                    FirstName = "Raj",
+                    LastName = "Aryan",
                     ProjectId = 234,
                     UserId = 123
                 }
             };
             var controller = new ProjectController(new BC.ProjectBC(context));
-            var ex = Assert.Throws<ArithmeticException>(() => controller.DeleteProjectDetails(testProject));
+            var ex = Assert.Throws<ArgumentException>(() => controller.DeleteProjectDetails(testProject));
             Assert.That(ex.Message, Is.Not.Null);
             
         }
