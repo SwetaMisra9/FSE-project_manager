@@ -299,7 +299,7 @@ namespace ProjectManager.Test
 
             var controller = new TaskController(new BC.TaskBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.InsertTaskDetails(taskDetails));
-            Assert.That(ex.ParamName, Is.EqualTo("taskDetails"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
@@ -354,7 +354,7 @@ namespace ProjectManager.Test
             Models.Task taskDetails = null;
             var controller = new TaskController(new BC.TaskBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.UpdateTaskDetails(taskDetails));
-            Assert.That(ex.ParamName, Is.EqualTo("taskDetails"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
@@ -408,7 +408,7 @@ namespace ProjectManager.Test
             Models.Task task = null;
             var controller = new TaskController(new BC.TaskBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.DeleteTaskDetails(task));
-            Assert.That(ex.ParamName, Is.EqualTo("task"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 

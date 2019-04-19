@@ -202,7 +202,7 @@ namespace ProjectManager.Test
 
             var controller = new UserController(new BC.UserBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.DeleteUserDetails(user));
-            Assert.That(ex.ParamName, Is.EqualTo("user"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
@@ -273,7 +273,7 @@ namespace ProjectManager.Test
             var controller = new UserController(new BC.UserBC(context));
             var ex = Assert.Throws<ArithmeticException>(() => controller.DeleteUserDetails(user));
             Assert.That(ex.Message, Is.Not.Null);
-            var result = controller.DeleteUserDetails(user) as JSendResponse;
+            
         }
 
         [Test]
@@ -343,7 +343,7 @@ namespace ProjectManager.Test
             var controller = new UserController(new BC.UserBC(context));
             var ex = Assert.Throws<ArithmeticException>(() => controller.DeleteUserDetails(user));
             Assert.That(ex.Message, Is.Not.Null);
-            var result = controller.DeleteUserDetails(user) as JSendResponse;
+            
         }
 
         [Test]
@@ -377,7 +377,7 @@ namespace ProjectManager.Test
 
             var controller = new UserController(new BC.UserBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.UpdateUserDetails(user));
-            Assert.That(ex.ParamName, Is.EqualTo("user"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
@@ -552,7 +552,7 @@ namespace ProjectManager.Test
 
             var controller = new UserController(new BC.UserBC(context));
             var ex = Assert.Throws<ArgumentNullException>(() => controller.InsertUserDetails(user));
-            Assert.That(ex.ParamName, Is.EqualTo("user"));
+            Assert.That(ex.Message, Is.Not.Null);
             
         }
 
