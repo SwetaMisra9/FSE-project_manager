@@ -14,7 +14,7 @@ namespace ProjectManager.Test
     [TestFixture]
     public class ProjectControllerTest
     {
-        [Test]
+        
         public void TestGetProjects_Success()
         {
             var context = new MockProjectManagerEntities();
@@ -45,7 +45,7 @@ namespace ProjectManager.Test
             Assert.AreEqual((result.Data as List<Project>).Count, 2);
         }
 
-        [Test]
+        
         public void TestInsertProjects_Success()
         {
             var context = new MockProjectManagerEntities();

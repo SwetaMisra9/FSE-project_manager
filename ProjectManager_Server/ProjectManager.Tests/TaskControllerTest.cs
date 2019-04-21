@@ -86,7 +86,7 @@ namespace ProjectManager.Test
             Assert.AreEqual((result.Data as List<ParentTask>).Count, 2);
         }
 
-        [Test]
+        
         public void TestInsertTasks_Success()
         {
             var context = new MockProjectManagerEntities();
