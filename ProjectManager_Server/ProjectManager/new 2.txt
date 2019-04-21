@@ -1,0 +1,10 @@
+https://github.com/SwetaMisra9/FSE-project_manager/tree/master/ProjectManager_Server
+
+ var ex = Assert.Throws<ArithmeticException>(() => controller.InsertProjectDetails(testProject));
+            Assert.That(ex.Message, Is.Not.Null);
+			
+			var ex = Assert.Throws<ArgumentNullException>(() => controller.InsertProjectDetails(testProject));
+            Assert.That(ex.ParamName, Is.EqualTo("testProject"));
+			
+			
+			C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\packages\NUnit.ConsoleRunner.3.10.0\tools\nunit3-console.exe\ProjectManager.Tests.dll
