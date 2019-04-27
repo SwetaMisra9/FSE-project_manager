@@ -11,7 +11,7 @@ using BC = ProjectManager.BC;
 
 namespace ProjectManger.NBenchPerformanceTesting
 {
-    public class ProjectManagerLoadTest : PerformanceTestStuite<ProjectManagerLoadTest>
+    public class ProjectManagerLoadTest 
     {
         private readonly Dictionary<int, int> dictionary = new Dictionary<int, int>();
 
