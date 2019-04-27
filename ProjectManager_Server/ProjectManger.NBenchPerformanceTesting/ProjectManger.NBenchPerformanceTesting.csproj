@@ -77,7 +77,7 @@
       <Name>ProjectManager.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectManager\ProjectManager.csproj">
-      <Project>{075d618d-b171-45e7-9b8a-2be2d633b1f9}</Project>
+      <Project>{7a4b1134-eac6-4904-873c-776ff68786b8}</Project>
       <Name>ProjectManager</Name>
     </ProjectReference>
   </ItemGroup>
