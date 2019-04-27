@@ -310,7 +310,7 @@ namespace ProjectManager.Test
         {
             var context = new MockProjectManagerEntities();
             ProjectManager.Models.Task task = new Models.Task();
-            task.Parent_ID = -234;
+            task.Parent_ID = -236;
             var controller = new TaskController(new BC.TaskBC(context));
             var ex = Assert.Throws<ArithmeticException>(() => controller.InsertTaskDetails(task));
             Assert.That(ex.Message, Is.Not.Null);
