@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace ProjectManager.Test
 {
-    class MockProjectManagerEntities : DAC.ProjectManagerEntities1
+    class MockProjectManagerEntities : DAC.ProjectManagerContainer
     {
         private DbSet<DAC.User> _users = null;
         private DbSet<DAC.Project> _projects = null;

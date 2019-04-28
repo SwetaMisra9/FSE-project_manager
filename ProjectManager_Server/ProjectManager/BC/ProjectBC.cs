@@ -7,13 +7,13 @@ namespace ProjectManager.BC
 {
     public class ProjectBC
     {
-        DAC.ProjectManagerEntities1 dbContext = null;
+        DAC.ProjectManagerContainer dbContext = null;
         public ProjectBC()
         {
-            dbContext = new DAC.ProjectManagerEntities1();
+            dbContext = new DAC.ProjectManagerContainer();
         }
 
-        public ProjectBC(DAC.ProjectManagerEntities1 context)
+        public ProjectBC(DAC.ProjectManagerContainer context)
         {
             dbContext = context;
         }

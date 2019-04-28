@@ -69,6 +69,7 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
@@ -108,15 +109,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAC\Model1.Context.tt">
+    <Content Include="DAC\ProjectManager.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProjectManager.Context.cs</LastGenOutput>
       <DependentUpon>ProjectManager.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DAC\Model1.tt">
+    <Content Include="DAC\ProjectManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProjectManager.cs</LastGenOutput>
       <DependentUpon>ProjectManager.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="StartPage.html" />
@@ -134,32 +135,32 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DAC\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+    <Compile Include="DAC\ParentTask.cs">
+      <DependentUpon>ProjectManager.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAC\Model1.cs">
+    <Compile Include="DAC\Project.cs">
+      <DependentUpon>ProjectManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ProjectManager.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ProjectManager.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAC\ProjectManager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectManager.tt</DependentUpon>
     </Compile>
     <Compile Include="DAC\ProjectManager.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectManager.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAC\ParentTask.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAC\Project.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAC\Task.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ProjectManager.tt</DependentUpon>
     </Compile>
     <Compile Include="DAC\User.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ProjectManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

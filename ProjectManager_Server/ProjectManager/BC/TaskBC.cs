@@ -9,13 +9,13 @@ namespace ProjectManager.BC
 {
     public class TaskBC
     {
-        DAC.ProjectManagerEntities1 dbContext = null;
+        DAC.ProjectManagerContainer dbContext = null;
         public TaskBC()
         {
-            dbContext = new DAC.ProjectManagerEntities1();
+            dbContext = new DAC.ProjectManagerContainer();
         }
 
-        public TaskBC(DAC.ProjectManagerEntities1 context)
+        public TaskBC(DAC.ProjectManagerContainer context)
         {
             dbContext = context;
         }

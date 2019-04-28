@@ -8,7 +8,7 @@ using DAC=ProjectManager.DAC;
 
 namespace ProjectManger.NBenchPerformanceTesting
 {
-    class MockProjectManagerEntities : DAC.ProjectManagerEntities1
+    class MockProjectManagerEntities : DAC.ProjectManagerContainer
     {
         private DbSet<DAC.User> _users = null;
         private DbSet<DAC.Project> _projects = null;
