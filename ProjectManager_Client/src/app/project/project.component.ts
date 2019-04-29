@@ -130,7 +130,7 @@ cancelUser(){
       return;
     }
     if (!this.projectToAdd.user.userId || this.projectToAdd.user.userId.toString() === '') {
-      this.eventService.showWarning('Please select userId ');
+      this.eventService.showWarning('Please select Manager');
       return;
     }
     if (!this.startEndDateEnable) {
@@ -179,8 +179,14 @@ cancelUser(){
 
   editProject(project:Project) {
     this.buttonName = 'Update';
+    if(project.user != null)
+    {
     this.selectedUser = this.users.find(x => x.userId === project.user.userId).firstName + " " 
     + this.users.find(x => x.userId === project.user.userId).lastName;
+    }
+    else{
+      project.user=new User();
+    }
     this.projectToAdd = project;
     if (project.projectStartDate && project.projectEndDate) {
       this.projectToAdd.projectStartDate = moment(this.projectToAdd.projectStartDate).format('MM-DD-YYYY').toString();
@@ -190,8 +196,16 @@ cancelUser(){
       this.startEndDateEnable = false;
     }
   }
+  
+  
 
   deleteProject(project) {
+    if (!project.user|| project.user.userId.toString() === '')
+    {
+      this.eventService.showWarning('This project has no manager.Please assign a manager first if you need to delete it');
+    }
+    else
+    {
     this.eventService.showLoading(true);
     this.projectService.deleteProject(project).subscribe((data) => {
       this.eventService.showSuccess('Project suspended successfully')
@@ -202,6 +216,8 @@ cancelUser(){
         this.eventService.showError(error);
         this.eventService.showLoading(false);
       });
+    }
+    
   }
 
   sortProject(type: number) {
