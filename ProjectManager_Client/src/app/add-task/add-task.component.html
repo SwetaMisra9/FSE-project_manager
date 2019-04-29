@@ -90,14 +90,15 @@
             <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
           </div>
         </div>
-        <div class="list-group">
-          <a class="list-group-item" [class.active]="selectedIndex === i" *ngFor="let proj of projects|filteruser:{projectName:searchText}; let i = index"
-            (click)="setIndex(i,1)">{{proj.projectName}}</a>
+        <div *ngIf = "showProj" class="list-group scrollbar">
+          <a class="list-group-item"  *ngFor="let proj of projects|filteruser:{projectName:searchText};" 
+          [class.active]="proj===selectedProj"
+            (click)="setIndexProj(proj)">{{proj.projectName}}</a>
         </div>
       </div>
       <div class="modal-footer text-right">
         <button class="btn btn-primary" (click)="selectProj()">Ok</button>
-        <button class="btn btn-default" (click)="modalRef.hide();selectedIndex=null;">Cancel</button>
+        <button class="btn btn-default" (click)="cancelProj()">Cancel</button>
       </div>
     </ng-template>
     <ng-template #parentTaskModal>
@@ -113,14 +114,15 @@
             <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
           </div>
         </div>
-        <div class="list-group">
-          <a class="list-group-item" [class.active]="selectedIndexParent === i" *ngFor="let parent of parentTasks|filteruser:{parentTaskName:searchText}; let i = index"
-            (click)="setIndex(i,2)">{{parent.parentTaskName}}</a>
+        <div *ngIf = "showParent" class="list-group scrollbar">
+          <a class="list-group-item" *ngFor="let parent of parentTasks|filteruser:{parentTaskName:searchText};"
+          [class.active]="parent ===selectedParentTaskObj"
+            (click)="setIndexParent(parent)">{{parent.parentTaskName}}</a>
         </div>
       </div>
       <div class="modal-footer text-right">
         <button class="btn btn-primary" (click)="selectParentTask()">Ok</button>
-        <button class="btn btn-default" (click)="modalRef.hide();selectedIndexParent=null;">Cancel</button>
+        <button class="btn btn-default" (click)="cancelParent()">Cancel</button>
       </div>
     </ng-template>
     <ng-template #userModal>
@@ -136,13 +138,14 @@
             <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
           </div>
         </div>
-        <div class="list-group">
-          <a class="list-group-item" [class.active]="selectedIndexUser === i" *ngFor="let user of users|filteruser:{firstName:searchText,lastName:searchText}; let i = index"
-            (click)="setIndex(i,3)">{{user.firstName+' ' +user.lastName}}</a>
+        <div *ngIf = "showUser" class="list-group scrollbar">
+          <a class="list-group-item"  *ngFor="let user of users|filteruser:{firstName:searchText,lastName:searchText};"
+          [class.active]="user === selectedUserObj"
+            (click)="setIndexUser(user)">{{user.firstName+' ' +user.lastName}}</a>
         </div>
       </div>
       <div class="modal-footer text-right">
         <button class="btn btn-primary" (click)="selectUser()">Ok</button>
-        <button class="btn btn-default" (click)="modalRef.hide();selectedIndexUser=null;">Cancel</button>
+        <button class="btn btn-default" (click)="cancelUser()">Cancel</button>
       </div>
     </ng-template>

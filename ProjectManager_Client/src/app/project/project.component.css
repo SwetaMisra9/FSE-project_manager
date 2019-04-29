@@ -5,7 +5,10 @@
 .flex-container {
     display: flex;
 }
-
+.scrollbar {
+    height: 100px;
+    overflow-y: auto;
+}
 ul.list-group {
     width: 70%;
     display: inline-block;

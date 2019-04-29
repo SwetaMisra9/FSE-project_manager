@@ -59,7 +59,7 @@
       <div class="flex-container" *ngFor="let user of users|filteruser:{firstName:searchText,lastName:searchText,employeeId:searchText}">
         <ul class="list-group">
           <li class="list-group-item">First Name: {{user.firstName}}</li>
-          <li class="list-group-item">Last: Name: {{user.lastName}}</li>
+          <li class="list-group-item">Last Name: {{user.lastName}}</li>
           <li class="list-group-item">Employee Id: {{user.employeeId}}</li>
         </ul>
         <div class="view-buttons">

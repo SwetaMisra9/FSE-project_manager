@@ -21,3 +21,7 @@ div.view-buttons {
     margin-bottom: 10px;
     display: block;
 }
+ .scrollbar {
+        height: 100px;
+        overflow-y: auto;
+    }

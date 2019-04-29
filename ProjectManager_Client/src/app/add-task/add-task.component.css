@@ -11,7 +11,10 @@
 .checkbox label {
     padding-left: 30px;
 }
-
+.scrollbar {
+    height: 100px;
+    overflow-y: auto;
+}
 .checkbox input[type="checkbox"] {
     width: 20px;
     height: 20px;

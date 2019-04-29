@@ -134,13 +134,15 @@
           <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTextUser">
         </div>
       </div>
-      <div class="list-group">
-        <a class="list-group-item" [class.active]="selectedIndexUser === i" *ngFor="let user of users|filteruser:{firstName:searchTextUser
-          ,lastName:searchTextUser}; let i = index" (click)="setIndex(i)">{{user.firstName+' ' +user.lastName}}</a>
+      <div *ngIf = "show" class="list-group scrollbar">
+        <a class="list-group-item" *ngFor="let user of users|filteruser:{firstName:searchTextUser
+          ,lastName:searchTextUser};" 
+           [class.active]="user === selectedIndexUser" (click)="setIndex(user)">
+           {{user.firstName+' ' +user.lastName}}</a>
       </div>
     </div>
     <div class="modal-footer text-right">
       <button class="btn btn-primary" (click)="selectUser()">Ok</button>
-      <button class="btn btn-default" (click)="modalRef.hide();selectedIndexUser=null;">Cancel</button>
+      <button class="btn btn-default" (click)="cancelUser()">Cancel</button>
     </div>
   </ng-template>

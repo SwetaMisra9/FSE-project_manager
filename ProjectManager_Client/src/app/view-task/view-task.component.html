@@ -7,7 +7,7 @@
             <strong>Project</strong>
             <input type="text" class="form-control" style="width:60%;display:inline-block;margin-left:15px" id="project" [(ngModel)]="selectedProjName"
               disabled>
-            <button class="btn btn-primary" style="margin-left:15px;margin-top:15px" (click)="openModal(projModal)">Search</button>
+            <button class="btn btn-primary" style="margin-left:15px;" (click)="openModal(projModal)">Search</button>
   
           </div>
           <div class="col-sm-7 text-right" style="padding-right:0">
@@ -24,12 +24,12 @@
                 'glyphicon-arrow-down':isEndDateAsc===false}"></span>
             </button>
             <button class="btn btn-default" (click)="sortTask(3)" 
-            style="margin-left:15px;margin-top:15px">Priority
+            style="margin-left:15px;">Priority
                 <span class="glyphicon" [ngClass]="{'glyphicon-arrow-up':isPriorityAsc===true,
                 'glyphicon-arrow-down':isPriorityAsc===false}"></span>
             </button>
             <button class="btn btn-default" (click)="sortTask(4)" 
-            style="margin-left:15px;margin-top:15px">Completed
+            style="margin-left:15px;">Completed
                 <span class="glyphicon" [ngClass]="{'glyphicon-arrow-up':isCompletedAsc===true,
                 'glyphicon-arrow-down':isCompletedAsc===false}"></span>
             </button>
@@ -61,9 +61,9 @@
               <td>{{task.priority}}</td>
               <td>{{task.start_Date|date:'shortDate'}}</td>
               <td>{{task.end_Date|date:'shortDate'}}</td>
-              <td>
-                <button *ngIf="task.status===0" class="btn btn-primary" (click)="editTask(task)">Edit</button>
-                <button *ngIf="task.status===0" class="btn btn-danger" style="margin-left:15px;" (click)="deleteTask(task)">End Task</button>
+              <td *ngIf="task.status===0">
+                <button  class="btn btn-primary" (click)="editTask(task)">Edit</button>
+                <button  class="btn btn-danger" style="margin-left:15px;" (click)="deleteTask(task)">End Task</button>
               </td>
             </tr>
           </tbody>
@@ -86,13 +86,14 @@
           <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
         </div>
       </div>
-      <div class="list-group">
-        <a class="list-group-item" [class.active]="selectedIndex === i" *ngFor="let proj of projects|filteruser:{projectName:searchText}; let i = index"
-          (click)="setIndex(i)">{{proj.projectName}}</a>
+      <div *ngIf = "show" class="list-group scrollbar" >
+        <a class="list-group-item"  *ngFor="let proj of projects| filteruser: {projectName:searchText};"
+        [class.active]="proj === selectedProj"
+          (click)="setIndex(proj)">{{proj.projectName}}</a>
       </div>
     </div>
     <div class="modal-footer text-right">
       <button class="btn btn-primary" (click)="selectProj()">Ok</button>
-      <button class="btn btn-default" (click)="modalRef.hide();selectedIndex=null;">Cancel</button>
+      <button class="btn btn-default" (click)="cancelProj()">Cancel</button>
     </div>
   </ng-template>

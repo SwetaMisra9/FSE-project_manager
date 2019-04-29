@@ -38,6 +38,12 @@ export class AddTaskComponent implements OnInit {
   minEndDate: Date;
   buttonName: string;
   updateDisabled: boolean;
+  selectedProj :Project;
+  selectedParentTaskObj :ParentTask;
+  selectedUserObj : User;
+  showProj : boolean;
+  showParent :boolean;
+  showUser : boolean;
 
   constructor(private eventService: EventService, private projectService: ProjectService,
     private userService: UserService, private taskService: TaskService, private modalService: BsModalService, private route: ActivatedRoute) {
@@ -52,6 +58,9 @@ export class AddTaskComponent implements OnInit {
         moment(new Date()).add(1, 'days').format('MM-DD-YYYY').toString();
       this.selectedParentTask = this.taskToAdd.parentTaskName;
       this.selectedUser = this.taskToAdd.user.firstName;
+      this.showProj= true;
+      this.showParent = true;
+      this.showUser = true;
     }
     else {
       this.taskToAdd = new Task();
@@ -63,7 +72,9 @@ export class AddTaskComponent implements OnInit {
       this.minEndDate.setDate(this.minStartDate.getDate() + 1);
       this.taskToAdd.start_Date = moment(new Date()).format('MM-DD-YYYY').toString();
       this.taskToAdd.end_Date = moment(new Date()).add(1, 'days').format('MM-DD-YYYY').toString();
-
+      this.showProj= true;
+      this.showParent = true;
+      this.showUser = true;
       this.projects = new Array<Project>();
       this.users = new Array<User>();
       this.parentTasks = new Array<ParentTask>();
@@ -139,6 +150,7 @@ export class AddTaskComponent implements OnInit {
     this.searchText = undefined;
     if (type === 1) {
       this.eventService.showLoading(true);
+      this.showProj = true;
       this.projectService.getProject().subscribe((project) => {
         this.projects = project;
         this.modalRef = this.modalService.show(template);
@@ -152,6 +164,7 @@ export class AddTaskComponent implements OnInit {
     if (type === 2) {
       if (!this.hasParentTask) {
         this.eventService.showLoading(true);
+        this.showParent = true;
         this.taskService.getParentTask().subscribe((parentTask) => {
           this.parentTasks = parentTask;
           this.modalRef = this.modalService.show(template);
@@ -168,6 +181,7 @@ export class AddTaskComponent implements OnInit {
     if (type === 3) {
       if (!this.hasParentTask) {
         this.eventService.showLoading(true);
+        this.showUser = true;
         this.userService.getUser().subscribe((user) => {
           this.users = user;
           this.modalRef = this.modalService.show(template);
@@ -198,39 +212,77 @@ export class AddTaskComponent implements OnInit {
     this.selectedParentTask = null;
     this.selectedIndex = null;
     this.selectedProjName = null;
+    this.selectedProj = null;
+    this.selectedParentTaskObj=null;
+    this.selectedUserObj = null;
+    this.showProj = true;
+    this.showParent =true;
+    this.showUser = true;
+  } 
 
+  
+  setIndexProj(proj: Project) {
+    this.selectedProj = proj;
+    this.searchText = proj.projectName;
+    this.showProj = false;
   }
-
-  setIndex(index: number, type: number) {
-    if (type === 1) {
-      this.selectedIndex = index;
-    }
-    if (type === 2) {
-      this.selectedIndexParent = index;
-    }
-    if (type === 3) {
-      this.selectedIndexUser = index;
-    }
+  setIndexParent(parentTask: ParentTask) {
+    this.selectedParentTaskObj = parentTask;
+    this.searchText = parentTask.parentTaskName;
+    this.showParent = false;
   }
-
+  setIndexUser(user: User) {
+    this.selectedUserObj = user;
+    this.searchText = user.firstName + " " + user.lastName;
+    this.showUser = false;
+  }
   selectProj() {
-    this.taskToAdd.project_ID = +this.projects[this.selectedIndex].projectId;
-    this.selectedProjName = this.projects[this.selectedIndex].projectName;
-    this.selectedIndex = null;
+    if(this.selectedProj != null)
+    {
+    this.taskToAdd.project_ID = +this.selectedProj.projectId;
+    this.selectedProjName = this.selectedProj.projectName;
+    this.selectedProj = null;
+    this.searchText ='';
     this.modalRef.hide();
+    }
   }
-
+cancelProj(){
+  this.modalRef.hide();
+  this.selectedProj=null;
+  this.searchText = null;
+  this.showProj=true;
+}
   selectParentTask() {
-    this.taskToAdd.parent_ID = +this.parentTasks[this.selectedIndexParent].parentTaskId;
-    this.selectedParentTask = this.parentTasks[this.selectedIndexParent].parentTaskName;
-    this.selectedIndexParent = null;
+    if(this.selectedParentTaskObj != null)
+    {
+    this.taskToAdd.parent_ID = +this.selectedParentTaskObj.parentTaskId;
+    this.selectedParentTask = this.selectedParentTaskObj.parentTaskName;
+    this.selectedParentTaskObj = null;
+    this.searchText ='';
     this.modalRef.hide();
+    }
+  }
+  cancelParent(){
+    this.modalRef.hide();
+    this.selectedParentTaskObj=null;
+    this.searchText ='';
+    this.showParent=true;
   }
   selectUser() {
-    this.taskToAdd.user.userId = +this.users[this.selectedIndexUser].userId;
-    this.selectedUser = this.users[this.selectedIndexUser].firstName;
-    this.selectedIndexUser = null;
+    if(this.selectedUserObj != null)
+    {
+    this.taskToAdd.user.userId = +this.selectedUserObj.userId;
+    this.selectedUser = this.selectedUserObj.firstName + " " + this.selectedUserObj.lastName;
+    this.selectedUserObj = null;
+    this.searchText ='';
     this.modalRef.hide();
+    }
+  }
+  cancelUser(){
+    this.modalRef.hide();
+    this.selectedUserObj=null;
+    this.searchText ='';
+    this.showUser=true;
   }
   hasParTaskChange($event) {
     if (this.hasParentTask) {
@@ -243,6 +295,9 @@ export class AddTaskComponent implements OnInit {
       this.taskToAdd.start_Date = null;
       this.taskToAdd.end_Date = null;
       this.taskToAdd.user.userId = null;
+      this.selectedProj = null;
+      this.selectedParentTaskObj=null;
+      this.selectedUserObj = null; 
     } else {
       this.taskToAdd.start_Date = this.taskToAdd.start_Date ?
       moment(this.taskToAdd.start_Date).format('MM-DD-YYYY').toString() : moment(new Date()).format('MM-DD-YYYY').toString();

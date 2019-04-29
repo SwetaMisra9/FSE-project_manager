@@ -9,6 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project';
 import { TaskService } from '../services/task.service';
+import { tick } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-view-task',
@@ -19,7 +20,7 @@ export class ViewTaskComponent implements OnInit {
   modalRef: BsModalRef;
   projects: Array<Project>;
   searchText: string;
-  selectedIndex: number;
+  selectedIndex: string;
   selectedProjName: string;
   tasks: Array<Task> = [];
   taskSearch: boolean;
@@ -27,7 +28,9 @@ export class ViewTaskComponent implements OnInit {
   isEndDateAsc: boolean;
   isPriorityAsc: boolean;
   isCompletedAsc: boolean;
-
+  selectedProj:Project;
+  show : boolean;
+  selectedProjId: string;
   constructor(private eventService: EventService, private projectService: ProjectService,
     private taskService: TaskService, private modalService: BsModalService, private router: Router) {
     this.projects = new Array<Project>();
@@ -35,6 +38,8 @@ export class ViewTaskComponent implements OnInit {
 
   ngOnInit() {
     this.eventService.showLoading(true);
+    this.show = true;
+
     this.projectService.getProject().subscribe((project) => {
       this.projects = project;
       this.eventService.showLoading(false);
@@ -44,18 +49,28 @@ export class ViewTaskComponent implements OnInit {
         this.eventService.showLoading(false);
       });
   }
+  
   openModal(template: TemplateRef<any>) {
+    this.projectService.getProject().subscribe((project) => {
+      this.projects = project;
+    });
     this.modalRef = this.modalService.show(template);
+    this.show =true;
   }
 
 
-  setIndex(index: number) {
-    this.selectedIndex = index;
+  setIndex(proj: Project) {
+    this.selectedProj = proj;
+    this.searchText = proj.projectName;
+    this.show = false;
   }
 
   selectProj() {
-    this.selectedProjName = this.projects[this.selectedIndex].projectName;
-    this.taskService.getAllTasksByProjectId(+this.projects[this.selectedIndex].projectId).subscribe(
+    if(this.selectedProj != null)
+    {
+    this.selectedProjName = this.selectedProj.projectName;
+    this.selectedProjId = this.selectedProj.projectId;
+    this.taskService.getAllTasksByProjectId(+this.selectedProj.projectId).subscribe(
       (tasks) => {
         this.tasks = tasks;
         this.taskSearch = true;
@@ -65,10 +80,18 @@ export class ViewTaskComponent implements OnInit {
         this.eventService.showError(error);
         this.eventService.showLoading(false);
       });
+      this.selectedProj = null;
+      this.searchText ='';
     this.modalRef.hide();
-
+    this.show = true;
+    }
   }
-
+cancelProj(){
+  this.modalRef.hide();
+  this.selectedProj=null;
+  this.searchText='';
+  this.show = true;
+}
   editTask(task) {
     this.router.navigate(['/addTask', { task: JSON.stringify(task) }]);
   }
@@ -77,7 +100,19 @@ export class ViewTaskComponent implements OnInit {
     this.eventService.showLoading(true);
     this.taskService.deleteTask(task).subscribe((data) => {
       this.eventService.showSuccess('Task completed successfully')
-      this.selectProj();
+      
+      
+      this.taskService.getAllTasksByProjectId(+this.selectedProjId).subscribe(
+        (tasks) => {
+          this.tasks = tasks;
+          this.taskSearch = true;
+          this.eventService.showLoading(false);
+        },
+        (error) => {
+          this.eventService.showError(error);
+          this.eventService.showLoading(false);
+        });
+      
       this.eventService.showLoading(false);
     },
       (error) => {

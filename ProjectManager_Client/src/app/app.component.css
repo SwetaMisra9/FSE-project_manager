@@ -20,7 +20,10 @@
 
 }
 
- 
+.selected {
+    background-color: blue!important;
+    
+  }
 
 .modal-backdrop-loading {
     width: 160px;

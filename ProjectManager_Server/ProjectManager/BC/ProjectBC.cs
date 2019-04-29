@@ -19,9 +19,11 @@ namespace ProjectManager.BC
         }
         public List<MODEL.Project> RetrieveProjects()
         {
+            List<MODEL.Project> projectList = new List<MODEL.Project>();
             using (dbContext)
             {
-                return dbContext.Projects.Select(x => new MODEL.Project()
+                projectList = 
+                 dbContext.Projects.Select(x => new MODEL.Project()
                 {
                     ProjectId = x.Project_ID,
                     ProjectName = x.Project_Name,
@@ -35,7 +37,9 @@ namespace ProjectManager.BC
                     NoOfTasks = dbContext.Tasks.Where(y => y.Project_ID == x.Project_ID).Count(),
                     NoOfCompletedTasks = dbContext.Tasks.Where(y => y.Project_ID == x.Project_ID && y.Status == 1).Count(),
                 }).ToList();
+
             }
+            return projectList;
         }
 
         public int InsertProjectDetails(MODEL.Project project)

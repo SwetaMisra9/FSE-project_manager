@@ -21,7 +21,7 @@ export class ProjectComponent implements OnInit {
   minStartDate: Date;
   minEndDate: Date;
   modalRef: BsModalRef;
-  selectedIndexUser: number;
+  selectedIndexUser: User;
   selectedUser: string;
   users: Array<User>;
   searchText: string;
@@ -31,6 +31,7 @@ export class ProjectComponent implements OnInit {
   isEndDateAsc: boolean;
   isPriorityAsc: boolean;
   isCompletedAsc: boolean;
+  show:boolean;
 
   constructor(private eventService: EventService, private projectService: ProjectService,
     private userService: UserService, private modalService: BsModalService) {
@@ -41,6 +42,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
     this.projectToAdd = new Project();
     this.buttonName = 'Add';
+    this.show = true;
     this.projectToAdd.priority = 0;
     this.minStartDate = new Date();
     this.minEndDate = new Date();
@@ -86,19 +88,30 @@ export class ProjectComponent implements OnInit {
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
-
-
+    this.show =true;
   }
-  setIndex(index: number) {
-    this.selectedIndexUser = index;
+  setIndex(user: User) {
+    this.selectedIndexUser = user;
+    this.searchTextUser = user.firstName + " " + user.lastName;
+    this.show = false;
   }
   selectUser() {
-    this.projectToAdd.user.userId = +this.users[this.selectedIndexUser].userId;
-    this.selectedUser = this.users[this.selectedIndexUser].firstName;
+    if(this.selectedIndexUser != null)
+    {
+    this.projectToAdd.user.userId = +this.selectedIndexUser.userId;
+    this.selectedUser = this.selectedIndexUser.firstName + " " + this.selectedIndexUser.lastName;
     this.selectedIndexUser = null;
+    this.searchTextUser ='';
     this.modalRef.hide();
+    this.show = true;
+    }
   }
-
+cancelUser(){
+  this.modalRef.hide();
+  this.selectedIndexUser=null;
+  this.searchTextUser='';
+  this.show=true;
+}
   addProject() {
     if (!this.projectToAdd.projectName || this.projectToAdd.projectName === '') {
       this.eventService.showWarning('Please add project name ');
@@ -142,6 +155,7 @@ export class ProjectComponent implements OnInit {
       this.projectService.updateProject(this.projectToAdd).subscribe((data) => {
         this.eventService.showSuccess('Update successfully')
         this.ngOnInit();
+        this.resetProject();
         this.eventService.showLoading(false);
       },
         (error) => {
@@ -163,9 +177,10 @@ export class ProjectComponent implements OnInit {
     this.selectedIndexUser = null;
   }
 
-  editProject(project) {
+  editProject(project:Project) {
     this.buttonName = 'Update';
-    this.selectedUser = this.users.find(x => x.userId === project.user.userId).firstName;
+    this.selectedUser = this.users.find(x => x.userId === project.user.userId).firstName + " " 
+    + this.users.find(x => x.userId === project.user.userId).lastName;
     this.projectToAdd = project;
     if (project.projectStartDate && project.projectEndDate) {
       this.projectToAdd.projectStartDate = moment(this.projectToAdd.projectStartDate).format('MM-DD-YYYY').toString();
