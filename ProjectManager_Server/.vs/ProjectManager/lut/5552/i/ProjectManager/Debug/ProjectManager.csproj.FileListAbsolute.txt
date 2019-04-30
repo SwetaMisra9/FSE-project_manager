@@ -1,0 +1,7 @@
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\b\ProjectManager\bin\ProjectManager.dll.config
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\b\ProjectManager\bin\ProjectManager.dll
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\i\ProjectManager\Debug\ProjectManager.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\i\ProjectManager\Debug\ProjectManager.dll.config
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\i\ProjectManager\Debug\ProjectManager.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\i\ProjectManager\Debug\ProjectManager.csproj.CopyComplete
+C:\Users\Administrator\Desktop\FSE-ProjectManager\ProjectManager_Server\.vs\ProjectManager\lut\5552\i\ProjectManager\Debug\ProjectManager.dll

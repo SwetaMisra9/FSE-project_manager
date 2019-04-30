@@ -122,7 +122,7 @@ namespace ProjectManager.Controllers
             }
             if (project.User.ProjectId < 0)
             {
-                throw new ArithmeticException("User object project Id cannot be negative");
+                throw new ArithmeticException("User object project Id cannot be negative.");
             }
             if (project.NoOfCompletedTasks > project.NoOfTasks)
             {
