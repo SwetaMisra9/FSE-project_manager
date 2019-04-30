@@ -114,7 +114,7 @@ namespace ProjectManager.Controllers
             }
             if (project.ProjectId < 0)
             {
-                throw new ArithmeticException("Project ID cannot be negative");
+                throw new ArithmeticException("Project ID cannot be negative.");
             }
             if (project.User == null)
             {
