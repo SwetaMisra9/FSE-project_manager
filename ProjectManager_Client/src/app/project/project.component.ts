@@ -179,11 +179,25 @@ cancelUser(){
 
   editProject(project:Project) {
     this.buttonName = 'Update';
-    if(project.user != null)
+    if(project.user != null && project.user.userId != null)
     {
+      if(this.users == null)
+      {
+        this.userService.getUser().subscribe((user) => {
+          this.users = user;
+    
+          this.eventService.showLoading(false);
+        },
+          (error) => {
+            this.eventService.showError(error);
+            this.eventService.showLoading(false);
+          });
+      }
+      
     this.selectedUser = this.users.find(x => x.userId === project.user.userId).firstName + " " 
     + this.users.find(x => x.userId === project.user.userId).lastName;
-    }
+    
+  }
     else{
       project.user=new User();
     }
@@ -199,8 +213,8 @@ cancelUser(){
   
   
 
-  deleteProject(project) {
-    if (!project.user|| project.user.userId.toString() === '')
+  deleteProject(project:Project) {
+    if (!project.user|| project.user.userId == null)
     {
       this.eventService.showWarning('This project has no manager.Please assign a manager first if you need to delete it');
     }
