@@ -118,7 +118,7 @@ namespace ProjectManager.Controllers
             }
             if (project.User == null)
             {
-                throw new ArgumentNullException("User related to the project cannot be null");
+                throw new ArgumentNullException("User related to the project cannot be null.");
             }
             if (project.User.ProjectId < 0)
             {
